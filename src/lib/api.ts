@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'https://ternak-fe-imji.vercel.app/api';
 
 // Get auth token from localStorage
 const getAuthToken = () => {
