@@ -17,8 +17,7 @@
     {
       "src": "/icon5121.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable any"
+      "type": "image/png"
     }
   ],
   "categories": ["productivity", "business"],
