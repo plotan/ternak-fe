@@ -1,27 +1,45 @@
-const CACHE_NAME = 'sistem-ternak-v1';
+const CACHE_NAME = 'sistem-ternak-v2';
 const urlsToCache = [
   '/',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
-  '/manifest.json'
+  '/manifest.json',
+  '/icon1.png',
+  '/icon512.png',
+  '/browserconfig.xml'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(urlsToCache))
+      .then((cache) => {
+        return cache.addAll(urlsToCache).catch((error) => {
+          console.log('Cache addAll failed:', error);
+          // Continue even if some resources fail to cache
+        });
+      })
   );
+  // Force the waiting service worker to become the active service worker
+  self.skipWaiting();
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Return cached version or fetch from network
-        return response || fetch(event.request);
-      }
-    )
-  );
+  // Only handle GET requests
+  if (event.request.method === 'GET') {
+    event.respondWith(
+      caches.match(event.request)
+        .then((response) => {
+          // Return cached version or fetch from network
+          if (response) {
+            return response;
+          }
+          return fetch(event.request).catch(() => {
+            // Return a fallback for navigation requests
+            if (event.request.mode === 'navigate') {
+              return caches.match('/');
+            }
+          });
+        })
+    );
+  }
 });
 
 self.addEventListener('activate', (event) => {
@@ -36,4 +54,6 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
+  // Claim all clients immediately
+  self.clients.claim();
 });

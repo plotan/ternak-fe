@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './hooks/useAuth';
@@ -35,6 +36,57 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 function App() {
+  useEffect(() => {
+    // Register service worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('SW registered: ', registration);
+          })
+          .catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+
+    // Handle PWA install prompt
+    let deferredPrompt: any;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Show install button or banner
+      const installBanner = document.createElement('div');
+      installBanner.innerHTML = `
+        <div style="position: fixed; bottom: 20px; left: 20px; right: 20px; background: #16a34a; color: white; padding: 12px; border-radius: 8px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+          <span style="font-size: 14px;">Install Sistem Ternak sebagai aplikasi</span>
+          <div>
+            <button id="install-btn" style="background: white; color: #16a34a; border: none; padding: 6px 12px; border-radius: 4px; margin-right: 8px; cursor: pointer; font-size: 12px;">Install</button>
+            <button id="dismiss-btn" style="background: transparent; color: white; border: 1px solid white; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Nanti</button>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(installBanner);
+      
+      document.getElementById('install-btn')?.addEventListener('click', () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult: any) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          }
+          deferredPrompt = null;
+          document.body.removeChild(installBanner);
+        });
+      });
+      
+      document.getElementById('dismiss-btn')?.addEventListener('click', () => {
+        document.body.removeChild(installBanner);
+      });
+    });
+  }, []);
+
   return (
     <AuthProvider>
       <Router>
