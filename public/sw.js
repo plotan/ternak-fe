@@ -2,8 +2,8 @@ const CACHE_NAME = 'sistem-ternak-v2';
 const urlsToCache = [
   '/',
   '/manifest.json',
-  '/icon1.png',
-  '/icon512.png',
+  '/icon125.png',
+  '/icon5121.png',
   '/browserconfig.xml'
 ];
 
