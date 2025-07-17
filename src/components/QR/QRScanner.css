@@ -1,0 +1,94 @@
+/* QR Scanner Mobile Optimizations */
+#qr-reader {
+  width: 100% !important;
+  border: none !important;
+}
+
+#qr-reader__camera_selection {
+  margin-bottom: 10px !important;
+}
+
+#qr-reader__scan_region {
+  min-height: 300px !important;
+  background: #000 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+#qr-reader__scan_region video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
+}
+
+#qr-reader__scan_region img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
+}
+
+#qr-reader__dashboard {
+  margin-top: 10px !important;
+}
+
+#qr-reader__dashboard_section {
+  margin-bottom: 8px !important;
+}
+
+#qr-reader__dashboard_section_csr {
+  text-align: center !important;
+  margin-top: 10px !important;
+}
+
+#qr-reader__dashboard_section_csr > div {
+  display: inline-block !important;
+  margin: 0 5px !important;
+}
+
+/* Ensure camera takes full space on mobile */
+@media (max-width: 768px) {
+  #qr-reader__scan_region {
+    min-height: 250px !important;
+    width: 100% !important;
+  }
+  
+  #qr-reader__camera_selection {
+    font-size: 14px !important;
+  }
+  
+  #qr-reader__dashboard_section_csr button {
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+    margin: 2px !important;
+  }
+}
+
+/* Hide unnecessary elements */
+#qr-reader__status_span {
+  display: none !important;
+}
+
+/* Style the torch and zoom controls */
+#qr-reader__dashboard_section_csr button {
+  background: #16a34a !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 10px 16px !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  margin: 5px !important;
+  transition: background 0.2s !important;
+}
+
+#qr-reader__dashboard_section_csr button:hover {
+  background: #15803d !important;
+}
+
+#qr-reader__dashboard_section_csr button:disabled {
+  background: #9ca3af !important;
+  cursor: not-allowed !important;
+}
