@@ -1,10 +1,10 @@
-const CACHE_NAME = 'sistem-ternak-v2';
+const CACHE_NAME = 'sistem-ternak-v3';
 const urlsToCache = [
   '/',
-  '/manifest.json',
-  '/icon125.png',
-  '/icon5121.png',
-  '/browserconfig.xml'
+  'manifest.json',
+  'icon125.png',
+  'icon5121.png',
+  'browserconfig.xml'
 ];
 
 self.addEventListener('install', (event) => {

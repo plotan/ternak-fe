@@ -9,15 +9,16 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icon125.png",
+      "src": "icon125.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icon5121.png",
+      "src": "icon5121.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "categories": ["productivity", "business"],
