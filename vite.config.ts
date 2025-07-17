@@ -9,7 +9,14 @@ export default defineConfig({
   },
   server: {
     headers: {
-      'Content-Type': 'application/javascript',
+      'Access-Control-Allow-Origin': '*',
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
     },
   },
 });
